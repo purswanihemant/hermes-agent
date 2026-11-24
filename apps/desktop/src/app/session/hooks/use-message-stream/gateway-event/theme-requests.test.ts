@@ -6,6 +6,7 @@ import type { ScopedServerRequest } from '@/store/gateway'
 import { resetServerRequestsForTests } from '@/store/server-requests'
 import { $themePicks, cancelThemePick, pickTheme } from '@/store/theme-pick'
 import { $pendingSkinApply } from '@/themes/backend-sync'
+import { DEFAULT_SKIN_NAME } from '@/themes/presets'
 
 import type { ServerRequestContext } from './server-request-context'
 import { handleServerRequest } from './server-requests'
@@ -51,7 +52,7 @@ describe('set_theme requests', () => {
 
     expect(pickTheme('session-a', { accent: 'pink' })).toBe(true)
     expect(respond).toHaveBeenCalledWith({ picked: { accent: 'pink' } })
-    expect($pendingSkinApply.get()).toBe('nous-accent-e0218a')
+    expect($pendingSkinApply.get()).toBe(`${DEFAULT_SKIN_NAME}-accent-e0218a`)
     expect($themePicks.get()['session-a']).toBeUndefined()
   })
 

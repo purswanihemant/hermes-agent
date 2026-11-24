@@ -12,6 +12,9 @@ import { setShowReasoningFromConfig } from '@/store/reasoning-disclosure'
 import { $activeSessionId } from '@/store/session'
 import { setShowToolActivityFromConfig } from '@/store/tool-activity'
 
+const statusLine = (text: RegExp) => (_: string, node: Element | null) =>
+  node?.hasAttribute('data-status-line') === true && text.test(node.textContent ?? '')
+
 stubThreadEnvironment()
 stubThreadViewportSize()
 
@@ -139,7 +142,7 @@ describe('tool feed visibility policy', () => {
 
     expect(await screen.findByText('final answer only')).toBeTruthy()
     expect(container.querySelector('[data-slot="aui_thinking-disclosure"]')).toBeNull()
-    expect(await screen.findByText(/Explored 2 files/)).toBeTruthy()
+    expect(await screen.findByText(statusLine(/Explored 2 files/))).toBeTruthy()
     // The run scaffold is the visible flow here; the suppressed case above pins
     // its absence via the same marker.
     expect(container.querySelector('[data-tool-summary]')).not.toBeNull()
@@ -148,7 +151,7 @@ describe('tool feed visibility policy', () => {
   it('still shows tool chrome when reasoning blocks are on', async () => {
     const { container } = render(<Harness />)
 
-    expect(await screen.findByText(/Explored 2 files/)).toBeTruthy()
+    expect(await screen.findByText(statusLine(/Explored 2 files/))).toBeTruthy()
     expect(container.querySelector('[data-slot="aui_thinking-disclosure"]')).not.toBeNull()
   })
 

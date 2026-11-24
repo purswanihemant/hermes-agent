@@ -26,6 +26,19 @@ export const SCAFFOLD_META_CLASS = 'shrink-0 text-[0.625rem] tabular-nums text-(
  *  icon, spinner. Same box on every line, so the labels share a left edge. */
 export const SCAFFOLD_GLYPH_CLASS = 'grid size-3.5 shrink-0 place-items-center'
 
+export function LeadVerb({ text }: { text: string }) {
+  const space = text.indexOf(' ')
+
+  return space < 0 ? (
+    <span data-lead-verb="">{text}</span>
+  ) : (
+    <>
+      <span data-lead-verb="">{text.slice(0, space)}</span>
+      {text.slice(space)}
+    </>
+  )
+}
+
 /**
  * One scaffold line. `children` is the label and whatever trails it in flow
  * (meta, diff counts); `trailing` reserves a right-side slot for a live timer.

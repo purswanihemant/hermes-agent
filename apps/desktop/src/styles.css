@@ -70,6 +70,7 @@
 :root[data-renderer-animations-paused]
   :is(
     .shimmer,
+    [data-lead-verb],
     .quest-glow,
     .pet-egg,
     .pet-egg__glow,
@@ -4300,4 +4301,280 @@ html[data-hermes-desktop-host='browser'] [data-slot='sidebar-container'] {
 .aui-error-details .aui-error-details-link:hover {
   background: none;
   color: var(--err-ink);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) {
+  --composer-width: 40rem;
+  --message-text-indent: 0rem;
+  --pane-tab-active-accent: transparent;
+  --ui-selection-background: color-mix(in srgb, var(--theme-foreground) 14%, transparent);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-context-menu-skip]:has(> .composer-human-message + [data-slot='aui_user-bubble-action-row']) {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .composer-human-message {
+  width: fit-content;
+  max-width: 85%;
+  margin-left: auto;
+  padding: 0.5rem 0.875rem;
+  border-radius: 1rem;
+}
+
+:root[data-hermes-theme='grokbot'] .composer-human-message {
+  --grokbot-bubble-ink: color-mix(
+    in srgb,
+    var(--dt-primary-foreground) clamp(0%, (var(--user-bubble-keep, 100%) - 60%) * 100, 100%),
+    var(--theme-foreground)
+  );
+  --ui-selection-background: color-mix(in srgb, var(--grokbot-bubble-ink) 35%, transparent);
+  border-color: color-mix(in srgb, var(--ui-stroke-secondary) calc(100% - var(--user-bubble-keep, 100%)), transparent);
+  background-color: color-mix(in srgb, var(--theme-bubble-seed) var(--user-bubble-keep, 100%), transparent);
+  color: var(--grokbot-bubble-ink);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .composer-human-message:has([data-slot='composer-rich-input']) {
+  width: 100%;
+  max-width: 100%;
+}
+
+:root[data-hermes-theme='grokbot'] .composer-human-message:has([data-slot='composer-rich-input']) {
+  --grokbot-bubble-ink: var(--ui-text-primary);
+  border-color: var(--ui-stroke-secondary);
+  background: var(--composer-fill);
+}
+
+:root[data-hermes-theme='grokbot'] .composer-human-message :is([data-slot='composer-rich-input'], .ref, [data-ref]) {
+  color: inherit;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_user-bubble-action-row'] {
+  background: transparent;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .composer-human-message + [data-slot='aui_user-bubble-action-row'] {
+  position: static;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_assistant-message-content'] > .aui-md:not([data-hud-shell] *, :has([data-slot='aui_markdown-image'], img, video)) {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 1rem;
+  background: var(--theme-secondary);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_assistant-message-content'] .aui-md [data-slot='code-card'] {
+  border-radius: 0.75rem;
+  background: var(--theme-background-seed);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='composer-root'] {
+  border-radius: 1.5rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='sidebar-panel-label'] {
+  color: var(--ui-text-tertiary);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='sidebar-panel-label'] > .dither {
+  display: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='pane-tab'] .uppercase {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='pane-tab'][data-active='true']:not([class*='vertical-rl']) {
+  isolation: isolate;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='pane-tab'][data-active='true']:not([class*='vertical-rl'])::before {
+  content: '';
+  position: absolute;
+  inset: 0.25rem 0;
+  z-index: -1;
+  border-radius: 9999px;
+  background: var(--tab-bg);
+  box-shadow: inset 0 0 0 1px var(--ui-stroke-secondary);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-'])
+  [data-slot='button']:not(
+    [data-variant='ghost'],
+    [data-variant='link'],
+    [data-variant='text'],
+    [data-variant='textStrong'],
+    [data-size='inline']
+  ) {
+  border-radius: 9999px;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) {
+  --conversation-turn-gap: 0.5rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_assistant-message-content'] > .aui-md + .aui-md,
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-'])
+  [data-slot='aui_turn-pair']
+  > [data-slot='aui_assistant-message-root']
+  + [data-slot='aui_assistant-message-root'] {
+  margin-top: 0.25rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='composer-status-stack'] > div {
+  margin-bottom: 0.5rem;
+  border-color: var(--ui-stroke-secondary);
+  border-radius: 1rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) :is([data-slot='aui_turn-activity'], [data-slot='aui_response-loading']) {
+  gap: 0.5rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) :is([data-slot='aui_turn-activity'], [data-slot='aui_response-loading']) > .dither,
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_assistant-message-content'] :has(> .glyph-spinner) {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: var(--theme-foreground);
+  opacity: 1 !important;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_assistant-message-content'] .glyph-spinner {
+  visibility: hidden;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) {
+  --conversation-scaffold-text: color-mix(in srgb, var(--ui-base) 86%, transparent);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-status-line]:not(.text-destructive, [class*='text-amber'])::before {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  background: var(--theme-foreground);
+  vertical-align: -0.25rem;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-tool-row] :has(+ [data-status-line]):not(:has(.text-destructive, [class*='text-amber'])),
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-tool-row]:not([data-tool-open]) [data-status-line] ~ .tabular-nums:not(.font-mono),
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-tool-summary] [data-status-line] ~ .tabular-nums:not(.font-mono) {
+  display: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-lead-verb] {
+  color: var(--ui-text-secondary);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .tool-memory-legendary-title {
+  color: var(--conversation-scaffold-text) !important;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .tool-memory-legendary-title,
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer:has(> [data-lead-verb]) {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  animation: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer:not(:has(> [data-lead-verb])),
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer > [data-lead-verb] {
+  background: linear-gradient(
+      90deg,
+      var(--ui-text-secondary) 0%,
+      var(--ui-text-secondary) 35%,
+      var(--ui-text-tertiary) 50%,
+      var(--ui-text-secondary) 65%,
+      var(--ui-text-secondary) 100%
+    )
+    0 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: grokbot-shimmer 1.8s linear infinite;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer:has(> [data-lead-verb]) {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer:has(> [data-lead-verb]):not([data-status-line])::before {
+  display: none;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer[data-status-line]::before {
+  position: static;
+  inset: auto;
+  transform: none;
+  animation: none;
+  -webkit-mask: none;
+  mask: none;
+}
+
+@keyframes grokbot-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer:not(:has(> [data-lead-verb])),
+  :root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .shimmer > [data-lead-verb] {
+    animation: none;
+    background: none;
+    color: var(--ui-text-secondary);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-'])
+  :is(
+    [data-slot='button'],
+    [data-slot='pane-tab'],
+    [data-slot='sidebar-menu-button'],
+    [data-slot='dropdown-menu-item'],
+    .composer-human-message
+  ) {
+  transition-property: color, background-color, border-color, box-shadow, opacity;
+  transition-duration: 160ms;
+  transition-timing-function: ease-out;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) :is([data-slot='button'], [data-slot='pane-tab'], [data-slot='sidebar-menu-button'], [data-slot='dropdown-menu-item']):hover {
+  transition-duration: 0s;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) :is([data-slot='button'], [data-slot='sidebar-menu-button']):active:not(:disabled) {
+  opacity: 0.8;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_thread-content'] {
+  max-width: calc(var(--composer-width) + 3rem);
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) [data-slot='aui_assistant-message-content'] [data-conversation-scaffold] {
+  opacity: 1;
+}
+
+:root:is([data-hermes-theme='grokbot'], [data-hermes-theme^='grokbot-accent-']) .bg-primary.text-white {
+  color: var(--dt-primary-foreground);
 }

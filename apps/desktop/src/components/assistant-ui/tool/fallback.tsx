@@ -28,6 +28,7 @@ import { CompactMarkdown } from '@/components/chat/compact-markdown'
 import { FileDiffPanel } from '@/components/chat/diff-lines'
 import { DisclosureRow } from '@/components/chat/disclosure-row'
 import {
+  LeadVerb,
   SCAFFOLD_GLYPH_CLASS,
   SCAFFOLD_LABEL_CLASS,
   SCAFFOLD_META_CLASS,
@@ -326,6 +327,7 @@ function ToolTitle({
         status === 'warning' && 'text-amber-700 dark:text-amber-300',
         legendary && !isPending && 'tool-memory-legendary-title text-transparent'
       )}
+      data-status-line=""
     >
       {isPending && titleAction ? (
         <>
@@ -334,7 +336,7 @@ function ToolTitle({
           {titleAction.suffix}
         </>
       ) : (
-        title
+        <LeadVerb text={title} />
       )}
     </FadeText>
   )
@@ -897,8 +899,14 @@ function ToolRunHeader({
         open={open}
         trailing={<TimelineTimestamp completedAt={completedAt} timestamp={startedAt} />}
       >
-        <FadeText className={cn(SCAFFOLD_LABEL_CLASS, 'truncate')}>
-          {live ? <span className="shimmer">{summary}</span> : summary}
+        <FadeText className={cn(SCAFFOLD_LABEL_CLASS, 'truncate')} data-status-line="">
+          {live ? (
+            <span className="shimmer">
+              <LeadVerb text={summary} />
+            </span>
+          ) : (
+            <LeadVerb text={summary} />
+          )}
         </FadeText>
       </ScaffoldRow>
     </div>

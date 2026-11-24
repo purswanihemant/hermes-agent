@@ -7,7 +7,7 @@ import { activitySignature, toolNarratesWait, TURN_QUIET_S } from '@/components/
 import { toolPresentVerb } from '@/components/assistant-ui/tool/run-summary'
 import { useElapsedSeconds } from '@/components/chat/activity-timer'
 import { ActivityTimerText } from '@/components/chat/activity-timer-text'
-import { SCAFFOLD_LABEL_CLASS } from '@/components/chat/scaffold-row'
+import { LeadVerb, SCAFFOLD_LABEL_CLASS } from '@/components/chat/scaffold-row'
 import { Codicon } from '@/components/ui/codicon'
 import { Loader } from '@/components/ui/loader'
 import { StatusPulse } from '@/components/ui/status-pulse'
@@ -52,8 +52,10 @@ const StatusRow: FC<{ children: ReactNode; label: string } & React.ComponentProp
 // Fixed label while auto-compaction runs — decoupled from backend status text.
 const COMPACTION_LABEL = 'Summarizing thread'
 
-const HintText: FC<{ children: ReactNode }> = ({ children }) => (
-  <span className={cn(SCAFFOLD_LABEL_CLASS, 'shimmer min-w-0 flex-1 truncate')}>{children}</span>
+const HintText: FC<{ children: string }> = ({ children }) => (
+  <span className={cn(SCAFFOLD_LABEL_CLASS, 'shimmer min-w-0 flex-1 truncate')}>
+    <LeadVerb text={children} />
+  </span>
 )
 
 // Provider slug of the managed local server (inventory.py's _local_runtime_row).
@@ -267,7 +269,9 @@ export const ResponseLoadingIndicator: FC = () => {
         <WaitHint hint={hint} />
       ) : localLoad ? (
         <ProgressHint label={t.assistant.thread.loadingLocalModel(localLoad.model)} percent={localLoad.percent} />
-      ) : null}
+      ) : (
+        <HintText>{t.assistant.thread.thinking}</HintText>
+      )}
       <ActivityTimerText aria-hidden={true} seconds={elapsed} />
     </StatusRow>
   )
@@ -343,7 +347,9 @@ const TurnActivityRow: FC<TurnActivityRowProps> = ({ active, elapsed, hint, loca
             <WaitHint hint={hint} />
           ) : localLoad ? (
             <ProgressHint label={t.assistant.thread.loadingLocalModel(localLoad.model)} percent={localLoad.percent} />
-          ) : null}
+          ) : (
+            <HintText>{t.assistant.thread.thinking}</HintText>
+          )}
           <ActivityTimerText aria-hidden={true} seconds={elapsed} />
         </>
       )}

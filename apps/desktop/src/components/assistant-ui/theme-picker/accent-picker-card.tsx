@@ -7,13 +7,14 @@ import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
 import { useTheme } from '@/themes'
 import { accentsFor, CUSTOM_ACCENT_PREFIX, NOUS_ACCENT } from '@/themes/accents'
+import { ownAccent } from '@/themes/persist-accent'
 
 import { CARD_ACTION_CLASS } from '../setup-beat/card-type'
 
 import { useLookPreview } from './look-preview'
 
 export interface AccentPickerCardProps {
-  /** Answers with a swatch id, `custom:#rrggbb`, or null for the theme's own accent (Nous blue); true once sent. */
+  /** Answers with a swatch id, `custom:#rrggbb`, or null for the theme's own accent; true once sent. */
   onContinue: (accent: null | string) => boolean
 }
 
@@ -24,12 +25,13 @@ export function AccentPickerCard({ onContinue }: AccentPickerCardProps) {
   const [custom, setCustom] = useState<null | string>(null)
   const look = useLookPreview('accent', renderedMode === 'dark')
   const staged = look.staged
+  const ownSwatchId = accentsFor(false).find(swatch => swatch.hex === ownAccent().toLowerCase())?.id
 
   return (
     <div className="grid gap-3">
       <div className="flex flex-wrap items-center gap-2.5 p-1" role="group">
         {accentsFor(renderedMode === 'dark').map(swatch => {
-          const value = swatch.id === 'nous' ? null : swatch.id
+          const value = swatch.id === ownSwatchId ? null : swatch.id
 
           return (
             <AccentSwatch

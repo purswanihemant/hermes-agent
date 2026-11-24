@@ -12,6 +12,9 @@ import { stubThreadEnvironment, stubThreadViewportSize, ThreadRuntime } from '..
 import { Thread } from '../thread'
 import { formatTimelineRange } from '../thread/timestamp'
 
+const statusLine = (text: string) => (_: string, node: Element | null) =>
+  node?.hasAttribute('data-status-line') === true && node.textContent === text
+
 // Timeline timestamps render only when `display.timestamps` is enabled.
 $displayTimestamps.set(true)
 
@@ -373,14 +376,14 @@ describe('settled tool run', () => {
   it('collapses to a summary line naming the work', async () => {
     const { container } = render(<GroupHarness message={settledRunMessage()} />)
 
-    expect(await screen.findByText('Explored wiring.tsx, ran 1 command')).toBeTruthy()
+    expect(await screen.findByText(statusLine('Explored wiring.tsx, ran 1 command'))).toBeTruthy()
     expect(container.querySelectorAll('[data-tool-row]')).toHaveLength(0)
   })
 
   it('expands to the underlying rows when the summary is clicked', async () => {
     const { container } = render(<GroupHarness message={settledRunMessage()} />)
 
-    fireEvent.click(await screen.findByText('Explored wiring.tsx, ran 1 command'))
+    fireEvent.click(await screen.findByText(statusLine('Explored wiring.tsx, ran 1 command')))
 
     await waitFor(() => {
       expect(container.querySelectorAll('[data-tool-row]').length).toBeGreaterThan(0)
@@ -404,7 +407,7 @@ describe('a file edit among ordinary activity', () => {
   it('stays visible between the two runs it interrupted', async () => {
     const { container } = render(<GroupHarness message={editBetweenRunsMessage()} />)
 
-    await screen.findByText('Explored 2 files')
+    await screen.findByText(statusLine('Explored 2 files'))
 
     const shape = [...container.querySelectorAll('[data-tool-summary],[data-tool-row]')].map(node =>
       node.hasAttribute('data-tool-summary') ? 'summary' : 'row'
@@ -474,7 +477,7 @@ describe('live tool run', () => {
   it('stays live in the gap between two sequential calls', async () => {
     const { container } = render(<GroupHarness message={betweenSequentialCallsMessage()} />)
 
-    expect(await screen.findByText('Running 2 commands')).toBeTruthy()
+    expect(await screen.findByText((_, node) => node?.classList.contains('shimmer') === true && node.textContent === 'Running 2 commands')).toBeTruthy()
     expect(container.querySelector('[data-tool-ticker]')).not.toBeNull()
     expect(container.querySelector('[data-tool-summary] button[aria-expanded]')).not.toBeNull()
   })
@@ -485,7 +488,7 @@ describe('live tool run', () => {
   it('drops the one-line window when a row inside it is opened', async () => {
     const { container } = render(<GroupHarness message={betweenSequentialCallsMessage()} />)
 
-    await screen.findByText('Running 2 commands')
+    await screen.findByText((_, node) => node?.classList.contains('shimmer') === true && node.textContent === 'Running 2 commands')
 
     const row = container.querySelector('[data-tool-ticker] [data-tool-row] button[aria-expanded="false"]')
 
@@ -509,7 +512,7 @@ describe('tool run left unresolved', () => {
   it('settles with the turn rather than narrating work that stopped', async () => {
     const { container } = render(<GroupHarness message={abandonedRunMessage()} />)
 
-    expect(await screen.findByText('Explored 2 files')).toBeTruthy()
+    expect(await screen.findByText(statusLine('Explored 2 files'))).toBeTruthy()
     expect(container.querySelectorAll('[data-tool-row]')).toHaveLength(0)
     expect(container.querySelector('[data-tool-summary] button[aria-expanded]')).not.toBeNull()
   })
@@ -517,7 +520,7 @@ describe('tool run left unresolved', () => {
   it('settles once the agent moves on, even mid-turn', async () => {
     const { container } = render(<GroupHarness message={movedOnMessage()} />)
 
-    expect(await screen.findByText('Explored 2 files')).toBeTruthy()
+    expect(await screen.findByText(statusLine('Explored 2 files'))).toBeTruthy()
     expect(container.querySelector('[data-tool-summary] button[aria-expanded]')).not.toBeNull()
   })
 })

@@ -26,7 +26,7 @@ import { parseMaybeObject, toolCallFailed } from '@/components/assistant-ui/tool
 import { formatElapsed, useElapsedSeconds, useMeasuredDuration } from '@/components/chat/activity-timer'
 import { ActivityTimerText } from '@/components/chat/activity-timer-text'
 import { GeneratedImage } from '@/components/chat/generated-image-result'
-import { SCAFFOLD_LABEL_CLASS, SCAFFOLD_META_CLASS, ScaffoldRow } from '@/components/chat/scaffold-row'
+import { LeadVerb, SCAFFOLD_LABEL_CLASS, SCAFFOLD_META_CLASS, ScaffoldRow } from '@/components/chat/scaffold-row'
 import { useI18n } from '@/i18n'
 import { mcpTargets, toolLabels } from '@/lib/connector-tools'
 import { generatedImageFromResult } from '@/lib/generated-images'
@@ -344,7 +344,9 @@ const ThinkingDisclosure: FC<{
           </span>
         }
       >
-        <span className={cn(SCAFFOLD_LABEL_CLASS, pending && 'shimmer')}>{thoughtLabel}</span>
+        <span className={cn(SCAFFOLD_LABEL_CLASS, pending && 'shimmer')} data-status-line="">
+          <LeadVerb text={thoughtLabel} />
+        </span>
       </ScaffoldRow>
       {open && (
         <div

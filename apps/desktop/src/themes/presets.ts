@@ -441,7 +441,76 @@ export const slateTheme: DesktopTheme = {
   }
 }
 
+export const grokbotTheme: DesktopTheme = {
+  name: 'grokbot',
+  label: 'Grok Bot',
+  description: 'Monochrome white and soft gray, Grok Bot style',
+  colors: {
+    background: '#ffffff',
+    foreground: '#1a1a1a',
+    card: '#ffffff',
+    cardForeground: '#1a1a1a',
+    muted: '#f2f2f2',
+    mutedForeground: '#737373',
+    popover: '#ffffff',
+    popoverForeground: '#1a1a1a',
+    primary: '#000000',
+    primaryForeground: '#ffffff',
+    secondary: '#f2f2f2',
+    secondaryForeground: '#1a1a1a',
+    accent: '#f0f0f0',
+    accentForeground: '#1a1a1a',
+    border: '#ececec',
+    input: '#ffffff',
+    ring: '#a3a3a3',
+    midground: '#1a1a1a',
+    midgroundForeground: '#ffffff',
+    composerRing: '#b3b3b3',
+    destructive: '#dc2626',
+    destructiveForeground: '#ffffff',
+    sidebarBackground: '#f7f7f7',
+    sidebarBorder: '#ececec',
+    userBubble: '#1a1a1a',
+    userBubbleBorder: '#1a1a1a'
+  },
+  darkColors: {
+    background: '#141414',
+    foreground: '#ededed',
+    card: '#1c1c1c',
+    cardForeground: '#ededed',
+    muted: '#262626',
+    mutedForeground: '#a3a3a3',
+    popover: '#1c1c1c',
+    popoverForeground: '#ededed',
+    primary: '#f5f5f5',
+    primaryForeground: '#141414',
+    secondary: '#262626',
+    secondaryForeground: '#ededed',
+    accent: '#262626',
+    accentForeground: '#ededed',
+    border: '#2a2a2a',
+    input: '#141414',
+    ring: '#737373',
+    midground: '#f5f5f5',
+    midgroundForeground: '#141414',
+    composerRing: '#525252',
+    destructive: '#f87171',
+    destructiveForeground: '#141414',
+    sidebarBackground: '#0f0f0f',
+    sidebarBorder: '#2a2a2a',
+    userBubble: '#f5f5f5',
+    userBubbleBorder: '#f5f5f5'
+  },
+  typography: {
+    fontSans:
+      '-apple-system, "SF Pro Text", BlinkMacSystemFont, system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif, ' +
+      EMOJI_FALLBACK,
+    fontMono: SYSTEM_MONO
+  }
+}
+
 export const BUILTIN_THEMES: Record<string, DesktopTheme> = {
+  grokbot: grokbotTheme,
   nous: nousTheme,
   github: githubTheme,
   catppuccin: catppuccinTheme,
@@ -459,7 +528,7 @@ export const BUILTIN_THEMES: Record<string, DesktopTheme> = {
 export const BUILTIN_THEME_LIST = Object.values(BUILTIN_THEMES)
 
 /** Skin used when nothing is persisted or the persisted name is retired. */
-export const DEFAULT_SKIN_NAME = 'nous'
+export const DEFAULT_SKIN_NAME = 'grokbot'
 
 /** Names that no longer resolve to a skin of their own. A stored pick of one
  *  falls back to DEFAULT_SKIN_NAME, and a cached backend theme under one is

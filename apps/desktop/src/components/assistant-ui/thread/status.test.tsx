@@ -68,7 +68,13 @@ describe('ResponseLoadingIndicator timer', () => {
 
     renderIndicator()
 
-    expect(screen.getByText('⏳ waiting on local-model — 30s with no output yet')).toBeTruthy()
+    expect(
+      screen.getByText(
+        (_, node) =>
+          node?.classList.contains('shimmer') === true &&
+          node.textContent === '⏳ waiting on local-model — 30s with no output yet'
+      )
+    ).toBeTruthy()
   })
 
   it('keeps the ticking timer out of the live region accessibility tree', () => {
